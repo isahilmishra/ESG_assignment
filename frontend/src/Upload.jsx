@@ -38,8 +38,7 @@ export default function Upload() {
     formData.append('source_type', sourceType);
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'https://esg-backend-hqpz.onrender.com';
-      const response = await axios.post(`${API_URL}/api/ingest/upload/`, formData, {
+      const response = await api.post('/api/ingest/upload/', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       toast.success(response.data.message);
@@ -67,8 +66,8 @@ export default function Upload() {
                 onClick={() => setSourceType(type)}
                 className={clsx(
                   "p-5 rounded-xl border-2 text-left transition-all duration-200 relative overflow-hidden group",
-                  sourceType === type
-                    ? "border-primary bg-primary/5 shadow-sm"
+                  sourceType === type 
+                    ? "border-primary bg-primary/5 shadow-sm" 
                     : "border-border hover:border-primary/30 hover:bg-slate-50"
                 )}
               >
@@ -119,7 +118,7 @@ export default function Upload() {
           </div>
 
         </div>
-
+        
         <div className="px-8 py-5 bg-slate-50 border-t border-border flex justify-end">
           <button
             onClick={handleUpload}
