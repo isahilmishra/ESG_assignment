@@ -14,10 +14,9 @@ export default function Dashboard() {
   const fetchRecords = async () => {
     setLoading(true);
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'https://esg-backend-hqpz.onrender.com';
-      const res = await axios.get(`${API_URL}/api/esg-records/?status=${filter}`);
+      const res = await api.get(`/api/esg-records/?status=${filter}`);
       setRecords(res.data);
-      const statsRes = await axios.get(`${API_URL}/api/esg-records/stats/`);
+      const statsRes = await api.get(`/api/esg-records/stats/`);
       setStats(statsRes.data);
     } catch (err) {
       toast.error("Failed to fetch records.");
@@ -32,8 +31,7 @@ export default function Dashboard() {
 
   const handleApprove = async (id) => {
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'https://esg-backend-hqpz.onrender.com';
-      await axios.post(`${API_URL}/api/esg-records/${id}/approve/`);
+      await api.post(`/api/esg-records/${id}/approve/`);
       toast.success("Record approved and locked for audit.");
       fetchRecords();
     } catch (err) {
@@ -45,8 +43,7 @@ export default function Dashboard() {
     const notes = prompt("Reason for flagging:");
     if (notes === null) return;
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'https://esg-backend-hqpz.onrender.com';
-      await axios.post(`${API_URL}/api/esg-records/${id}/flag/`, { notes });
+      await api.post(`/api/esg-records/${id}/flag/`, { notes });
       toast.success("Record flagged for review.");
       fetchRecords();
     } catch (err) {
@@ -73,7 +70,7 @@ export default function Dashboard() {
           <h2 className="text-3xl font-bold text-foreground tracking-tight">Analyst Review Dashboard</h2>
           <p className="text-muted-foreground mt-2 text-lg">Review ingested ESG data, approve valid records, and flag anomalies for audit.</p>
         </div>
-
+        
         <div className="flex items-center space-x-2 bg-surface p-1 rounded-xl border border-border shadow-sm">
           {['PENDING', 'APPROVED', 'FLAGGED'].map(status => (
             <button
@@ -81,8 +78,8 @@ export default function Dashboard() {
               onClick={() => setFilter(status)}
               className={clsx(
                 "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
-                filter === status
-                  ? "bg-primary text-primary-foreground shadow-md"
+                filter === status 
+                  ? "bg-primary text-primary-foreground shadow-md" 
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
               )}
             >
@@ -122,7 +119,7 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-
+        
         <div className="bg-surface rounded-2xl p-4 border border-border shadow-sm flex flex-col items-center justify-center h-32">
           {chartData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
