@@ -1,0 +1,7 @@
+EXPENSE REPORT EXTRACT
+========================================
+Emp Name|Trip Category|Departure|Arrival|Distance Traveled (Miles)|Seat Class
+John Doe|Flight|SFO|JFK|2,578.50|Economy
+Jane Smith|Flight|LHR|CDG|213.00|Business
+Bob Miller|Flight|JFK|LAX|2,473.00|Economy
+Bad Data|Flight|UNK|UNK|-|Economy
