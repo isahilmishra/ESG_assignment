@@ -23,10 +23,7 @@ services:
     staticPublishPath: "./frontend/dist"
     envVars:
       - key: VITE_API_URL
-        fromService:
-          name: esg-backend
-          type: web
-          property: url
+        sync: false
 
 databases:
   - name: esg-db
